@@ -84,14 +84,6 @@ contract BaseToken is ERC20 {
     bridgeAddress = newbridgeAddress;
   }
 
-  // function getTokenRequesters(address who) public view returns (TokenRequest memory) {
-  //   return tokenRequests[who];
-  // }
-  
-  // function burn(address owner, uint amount) external onlyBridgeAddress{
-    
-  // }
-
   function mint(address to, uint amount, uint nonce) external onlyBridgeAddress {
     require(!processedNonces[nonce], "Request replay attempt");
     processedNonces[nonce] = true;

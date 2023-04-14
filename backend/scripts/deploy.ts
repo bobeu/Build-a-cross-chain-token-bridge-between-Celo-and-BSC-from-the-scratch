@@ -1,5 +1,4 @@
-import { getProviders } from "./network";
-import { Transaction } from "ethers";
+import { getProviders, getUtils } from "./network";
 import celoBridge from "../artifacts/contracts/CeloBridge.sol/CeloBridge.json";
 import bscBridge from "../artifacts/contracts/BSCBridge.sol/BSCBridge.json";
 import cBGT from "../artifacts/contracts/tokens/BSCbBGT.sol/BSCbBGT.json";
@@ -10,19 +9,15 @@ async function main() {
     str,
     Web3,
     ethers,
-    accounts, 
-    bscProvider, 
-    celoProvider,
     getWeb3Instance,
-    waitForTransaction } = getProviders();
+    waitForTransaction } = getUtils();
+
+  const { bscProvider, celoProvider } = getProviders();
 
   const P_KEY_DEPLOYER = str(process.env.PRIVATE_KEY);
   const P_KEY_USER = str(process.env.PRIVATE_KEY_USER);
 
-  const { web3_celo, web3_bsc } = getWeb3Instance();
-
-  const account_celo = accounts(web3_celo, P_KEY_DEPLOYER, P_KEY_USER);
-  // const account_bsc = accounts(web3_bsc, P_KEY_DEPLOYER, P_KEY_USER);
+  const { web3_celo,} = getWeb3Instance();
 
   // Set the max request to any amount not greater than type(uint16).max i.e 65536 - 1
   const MAX_REQUEST = 1000;
